@@ -2,11 +2,16 @@ import { Container, Flex, Box, Button, Text, Center } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 
-const initialState = {
+const initialQuizState = {
   sentence: '',
   menu: '',
   answer: null,
-  answered: null,
+}
+
+const initialAnswerState = {
+  answered: false,
+  correction: null,
+  sentence: '',
 }
 
 const getQuiz = (path) => {
@@ -18,29 +23,25 @@ const getQuiz = (path) => {
   }
 }
 
-const judge = () => {
-  // ここで正誤判定をする
-}
-
 export default function QuizPage() {
-  const [quizState, setQuiz] = useState(initialState)
+  const [quizState, setQuiz] = useState(initialQuizState)
+  const [answerState, setAnswer] = useState(initialAnswerState)
 
   useEffect(() => {
     // ここでquizを取得するが今は固定値を返す
     setQuiz(getQuiz('/quiz'))
   }, [])
 
-  const pushMaru = () => {
-    setQuiz({
-      ...quizState,
-      answered: true,
-    })
-  }
+  const pushAnswer = (answer) => {
+    if (answerState.answered) return
 
-  const pushBatu = () => {
-    setQuiz({
-      ...quizState,
+    const correction = quizState.answer === answer
+    const correctMessage = `すばらしい！${quizState.menu}を５回やりましょう！！`
+    const inCorrectMessage = `ざんねん！${quizState.menu}を10回やりましょう！！`
+    setAnswer({
       answered: true,
+      correction: correction,
+      sentence: correction ? correctMessage : inCorrectMessage,
     })
   }
 
@@ -52,7 +53,7 @@ export default function QuizPage() {
       <Flex mt={10}>
         <Box flex="1">
           <Button
-            onClick={pushMaru}
+            onClick={() => pushAnswer(true)}
             colorScheme="red"
             width="100%"
             height={100}
@@ -62,7 +63,7 @@ export default function QuizPage() {
         </Box>
         <Box flex="1">
           <Button
-            onClick={pushBatu}
+            onClick={() => pushAnswer(false)}
             colorScheme="blue"
             width="100%"
             height={100}
@@ -71,18 +72,17 @@ export default function QuizPage() {
           </Button>
         </Box>
       </Flex>
-      {quizState.answered ? (
+      {
+        answerState.answered && (
         <Box>
           <Center mt={10}>
-            <Text fontSize="4xl" align="center">
-              正解
-            </Text>
+            <Text fontSize="4xl" align="center">{`${
+              answerState.correction ? '正解' : '不正解'
+            }`}</Text>
           </Center>
-
           <Center mt={5}>
             <Text fontSize="2xl" align="center">
-              あなたは腹筋に関する知識がありますね では他の筋肉を鍛えるために
-              {quizState.menu}を10回やりましょう！！
+              {answerState.sentence}
             </Text>
           </Center>
 
@@ -90,9 +90,8 @@ export default function QuizPage() {
             <Link href="/">トップページへ</Link>
           </Center>
         </Box>
-      ) : (
-        <p></p>
-      )}
+        )
+      }
     </Container>
   )
 }
