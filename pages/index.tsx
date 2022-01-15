@@ -1,4 +1,4 @@
-import { Box, Button, Center, Container, Heading, Text } from '@chakra-ui/react'
+import { Box, Link, Center, Container, Heading, Text } from '@chakra-ui/react'
 
 export default function Home() {
   return (
@@ -15,9 +15,9 @@ export default function Home() {
         </Box>
 
         <Center pt={7}>
-          <Button colorScheme="teal" color="white">
+          <Link href='/quiz'>
             クイズに挑戦する
-          </Button>
+          </Link>
         </Center>
       </Container>
     </Box>
