@@ -1,7 +1,8 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import { Text } from '@chakra-ui/react'
 import styled from '@emotion/styled'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faDumbbell } from '@fortawesome/free-solid-svg-icons'
 
 const LogoBox = styled.span`
   font-weight: bold;
@@ -11,22 +12,20 @@ const LogoBox = styled.span`
   line-height: 20px;
   padding: 10px;
 
-  &:hover img {
-    transform: rotate(20deg);
+  &:hover svg {
+    transform: rotate(-20deg);
   }
 `
 
 const Logo = () => {
-
   return (
     <Link href="/">
       <a>
         <LogoBox>
-          <Image src='/logo.png' width={30} height={30} alt='logo' />
-          <Text
-            fontWeight='bold'
-            ml={3}
-          >KinniQ</Text>
+          <FontAwesomeIcon icon={faDumbbell} />
+          <Text fontWeight="bold" ml={3}>
+            KinniQ
+          </Text>
         </LogoBox>
       </a>
     </Link>

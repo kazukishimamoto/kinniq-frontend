@@ -36,8 +36,14 @@ export default function QuizPage() {
     if (answerState.answered) return
 
     const correction = quizState.answer === answer
-    const correctMessage = `すばらしい！${quizState.menu}を５回やりましょう！！`
-    const inCorrectMessage = `ざんねん！${quizState.menu}を10回やりましょう！！`
+    const correctMessage = `すばらしい！
+あなたは既にある程度の筋トレ知識があるようですね！
+さあ、${quizState.menu}を５回やりましょう！！
+  `
+    const inCorrectMessage = `ざんねん！
+腹筋をしたからといってお腹周りの脂肪が落とせるわけではありません
+脂肪を落とすには大きな筋肉を使う運動、例えばスクワットなどが効果的です！
+さあ、間違ってしまったので${quizState.menu}を10回やりましょう！！`
     setAnswer({
       answered: true,
       correction: correction,
@@ -51,12 +57,13 @@ export default function QuizPage() {
         Q. {quizState.sentence}
       </Text>
       <Flex mt={10}>
-        <Box flex="1">
+        <Box flex="1" mr={5}>
           <Button
             onClick={() => pushAnswer(true)}
             colorScheme="red"
             width="100%"
-            height={100}
+            height={150}
+            fontSize='6xl'
           >
             ○
           </Button>
@@ -66,9 +73,10 @@ export default function QuizPage() {
             onClick={() => pushAnswer(false)}
             colorScheme="blue"
             width="100%"
-            height={100}
+            height={150}
+            fontSize='6xl'
           >
-            ☓
+            ✗
           </Button>
         </Box>
       </Flex>
@@ -76,18 +84,20 @@ export default function QuizPage() {
         answerState.answered && (
         <Box>
           <Center mt={10}>
-            <Text fontSize="4xl" align="center">{`${
+            <Text fontSize="6xl" align="center" color={answerState.correction ? 'red' : 'blue'}>{`${
               answerState.correction ? '正解' : '不正解'
             }`}</Text>
           </Center>
-          <Center mt={5}>
-            <Text fontSize="2xl" align="center">
+          <Box borderRadius="lg" color='white' bg={ answerState.correction ? 'red.400' : 'cyan.400'} p={3} mt={6} mb={6} align="center">
+            <Text fontSize='2xl'>
               {answerState.sentence}
             </Text>
-          </Center>
+          </Box>
 
           <Center mt={5}>
-            <Link href="/">トップページへ</Link>
+            <Button align="center" bg='gray.600' color='white' >
+              <Link href="/">トップページへ</Link>
+            </Button>
           </Center>
         </Box>
         )
