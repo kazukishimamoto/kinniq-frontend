@@ -17,7 +17,7 @@ interface Answer {
   sentence: string
 }
 
-const DEFAULT_API_LOCALHOST = 'http://localhost:3000/api/v1'
+const DEFAULT_API_LOCALHOST = process.env.NEXT_PUBLIC_DEFAULT_API_LOCALHOST || 'http://localhost:3000/api/v1'
 const fetchQuiz = () => {
   return axios
     .get(`${DEFAULT_API_LOCALHOST}/quiz?level=easy`)
@@ -86,7 +86,7 @@ export default function QuizPage() {
 
   return (
     <Container>
-      {quizState.map((quiz, index) => {
+      {quizState?.map((quiz, index) => {
         return (
           <Box key={index} pb={20}>
             <Text align="center" fontSize="6xl" mt={5} key={quiz.sentence}>
