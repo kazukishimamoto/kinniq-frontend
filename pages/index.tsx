@@ -1,14 +1,14 @@
-import { Box, Link, Center, Container, Heading, Image } from '@chakra-ui/react'
+import { Box, Link, Center, Container, Text, Image } from '@chakra-ui/react'
 
 export default function Home() {
   return (
     <Container>
       <Box display={{ md: 'flex' }}>
         <Box flexGrow={1}>
-          <Heading as="h1" variant="page-title">
+          <Text fontSize='4xl' fontWeight='bold' align='center' pb={5}>
             <br />
             Let&apos;s open the door of muscle!!
-          </Heading>
+          </Text>
         </Box>
       </Box>
       <Image src="/header.jpeg" alt="header image" />
