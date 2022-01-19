@@ -1,12 +1,14 @@
 import { Container, Flex, Box, Button, Text, Center } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import axios from 'axios'
 
 interface Quiz {
   id: number
   sentence: string
   menu: string
   answer: boolean
+  explanation: string
 }
 
 interface Answer {
@@ -15,32 +17,30 @@ interface Answer {
   sentence: string
 }
 
+const DEFAULT_API_LOCALHOST = 'http://localhost:3000/api/v1'
+const fetchQuiz = () => {
+  return axios
+    .get(`${DEFAULT_API_LOCALHOST}/quiz?level=easy`)
+    .then((res) => {
+      return res.data
+    })
+    .catch((e) => {
+      console.error(e)
+    })
+}
+
 export default function QuizPage() {
   const [quizState, setQuiz] = useState<Quiz[]>([])
   const [answerState, setAnswer] = useState<Answer[]>([])
 
   useEffect(() => {
     // ここでquizを取得するが今は固定値を返す
-    setQuiz([
-      {
-        id: 1,
-        sentence: 'お腹周りの脂肪を落とすのに最適な運動は腹筋である',
-        menu: '腹筋',
-        answer: false,
-      },
-      {
-        id: 2,
-        sentence: 'お腹周りの脂肪を落とすのに最適な運動は腹筋である',
-        menu: '腹筋',
-        answer: false,
-      },
-      {
-        id: 3,
-        sentence: 'お腹周りの脂肪を落とすのに最適な運動は腹筋である',
-        menu: '腹筋',
-        answer: false,
-      },
-    ])
+    fetchQuiz().then(data => {
+      setQuiz(data)
+    }).catch(() => {
+      console.log('error')
+    })
+
   }, [])
 
   const pushAnswer = (answer, quiz) => {
@@ -51,10 +51,8 @@ export default function QuizPage() {
 あなたは既にある程度の筋トレ知識があるようですね！
 さあ、${quiz.menu}を５回やりましょう！！
   `
-    const inCorrectMessage = `ざんねん！
-腹筋をしたからといってお腹周りの脂肪が落とせるわけではありません
-脂肪を落とすには大きな筋肉を使う運動、例えばスクワットなどが効果的です！
-さあ、間違ってしまったので${quiz.menu}を10回やりましょう！！`
+    const inCorrectMessage = `ざんねん！${quiz.explanation}
+さあ、${quiz.menu}を10回やりましょう！！`
 
     let tmp1 = answerState[0]
     let tmp2 = answerState[1]
