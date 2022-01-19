@@ -19,7 +19,7 @@ export default function Home() {
       </Box>
 
       <Center mt={5}>
-        <Link href="/quiz">
+        <Link href="/quiz?level=easy">
           <Box
             as="button"
             borderRadius="md"
