@@ -44,8 +44,8 @@ export default function QuizPage() {
 
   }, [])
 
-  const pushAnswer = (answer, quiz) => {
-    if (answerState[quiz.id]?.answered) return
+  const pushAnswer = (answer, quiz, index) => {
+    if (answerState[index]?.answered) return
 
     const correction = quiz.answer === answer
     const correctMessage = `すばらしい！
@@ -58,7 +58,7 @@ export default function QuizPage() {
     let tmp1 = answerState[0]
     let tmp2 = answerState[1]
     let tmp3 = answerState[2]
-    switch (quiz.id) {
+    switch (index+1) {
       case 1:
         tmp1 = {
           answered: true,
@@ -96,7 +96,7 @@ export default function QuizPage() {
             <Flex mt={10}>
               <Box flex="1" mr={5}>
                 <Button
-                  onClick={() => pushAnswer(true, quiz)}
+                  onClick={() => pushAnswer(true, quiz, index)}
                   colorScheme="red"
                   width="100%"
                   height={150}
@@ -107,7 +107,7 @@ export default function QuizPage() {
               </Box>
               <Box flex="1">
                 <Button
-                  onClick={() => pushAnswer(false, quiz)}
+                  onClick={() => pushAnswer(false, quiz, index)}
                   colorScheme="blue"
                   width="100%"
                   height={150}
