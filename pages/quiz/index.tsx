@@ -90,28 +90,28 @@ export default function QuizPage() {
       {quizState?.map((quiz, index) => {
         return (
           <Box key={index} pb={20}>
-            <Text align="center" fontSize="6xl" mt={5} key={quiz.sentence}>
+            <Text align="center" fontSize="3xl" mt={5} key={quiz.sentence}>
               Q{index + 1}. {quiz.sentence}
             </Text>
             <Flex mt={10}>
-              <Box flex="1" mr={5}>
+              <Box flex="1" textAlign='center'>
                 <Button
                   onClick={() => pushAnswer(true, quiz, index)}
                   colorScheme="red"
-                  width="100%"
-                  height={150}
-                  fontSize="6xl"
+                  width="80%"
+                  height={85}
+                  fontSize="5xl"
                 >
                   ○
                 </Button>
               </Box>
-              <Box flex="1">
+              <Box flex="1" textAlign='center'>
                 <Button
                   onClick={() => pushAnswer(false, quiz, index)}
                   colorScheme="blue"
-                  width="100%"
-                  height={150}
-                  fontSize="6xl"
+                  width="80%"
+                  height={85}
+                  fontSize="5xl"
                 >
                   ✗
                 </Button>
