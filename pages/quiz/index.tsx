@@ -19,6 +19,7 @@ interface Answer {
 
 const DEFAULT_API_LOCALHOST = process.env.NEXT_PUBLIC_DEFAULT_API_LOCALHOST || 'http://localhost:3000/api/v1'
 const fetchQuiz = () => {
+  console.log(DEFAULT_API_LOCALHOST)
   return axios
     .get(`${DEFAULT_API_LOCALHOST}/quiz?level=easy`)
     .then((res) => {
