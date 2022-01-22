@@ -51,14 +51,7 @@ const Navbar = (props) => {
           alignItems="center"
           flexGrow={1}
           mt={{ base: 4, nmd: 0 }}
-        >
-          <LinkItem
-            href="https://github.com/kazukishimamoto/kinniq-frontend"
-            path={path}
-          >
-            Source
-          </LinkItem>
-        </Stack>
+        ></Stack>
       </Container>
     </Box>
   )
